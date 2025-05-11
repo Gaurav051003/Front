@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trispark Team</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            background: linear-gradient(135deg, #d3c422 0%, #16213e 70%, #0f3460 100%);
+            color: #333333;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            perspective: 1000px;
+        }
+        /* Navbar Styles */
+        .navbar {
+            background: #1a1a2e;
+            padding: 15px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        }
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .navbar .logo {
+            font-size: 1.8rem;
+            color: #e6b800;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-decoration: none;
+            text-shadow: 0 0 15px rgba(230, 184, 0, 0.7);
+            transition: transform 0.3s ease;
+        }
+        .navbar .logo:hover {
+            transform: scale(1.05);
+        }
+        .navbar .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+        .navbar .nav-links li a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .navbar .nav-links li a:hover {
+            color: #e6b800;
+            transform: scale(1.1);
+        }
+        /* Main Content Styles */
+        .container {
+            max-width: 1300px;
+            margin: 100px auto 0;
+            padding: 60px 20px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 3.5rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 50px;
+            font-weight: 800;
+            text-shadow: 0 0 20px rgba(230, 184, 0, 0.4);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        h2 {
+            font-size: 2.5rem;
+            color: #e6b800;
+            margin: 60px 0 40px;
+            font-weight: 700;
+            text-shadow: 0 0 15px rgba(230, 184, 0, 0.3);
+        }
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+            justify-items: center;
+        }
+        /* Specific styling for Core Team to handle centering Md. Shabir */
+        .core-team-grid {
+            display: grid;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        .core-team-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            justify-items: center;
+        }
+        .center-member {
+            display: flex;
+            justify-content: center;
+        }
+        .center-member .team-member {
+            width: 100%;
+            max-width: 300px;
+        }
+        .team-member {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            border: 3px solid #16213e;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transform-style: preserve-3d;
+            position: relative;
+            width: 100%;
+            max-width: 300px;
+        }
+        .team-member:hover {
+            transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            border: 4px solid #16213e;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+            transform: translateZ(20px);
+        }
+        .team-member:hover img {
+            transform: translateZ(30px) scale(1.1);
+        }
+        .team-member h3 {
+            font-size: 1.6rem;
+            color: #333333;
+            margin-bottom: 5px;
+            font-weight: 700;
+            transform: translateZ(15px);
+        }
+        .team-member .role {
+            font-size: 1.2rem;
+            color: #555555;
+            margin-bottom: 10px;
+            font-weight: 500;
+            transform: translateZ(10px);
+        }
+        .team-member p {
+            font-size: 1rem;
+            color: #666666;
+            margin-bottom: 15px;
+            font-weight: 400;
+            transform: translateZ(5px);
+        }
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            transform: translateZ(10px);
+        }
+        .social-links a {
+            color: #16213e;
+            font-size: 1.2rem;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-links a:hover {
+            color: #e6b800;
+            transform: scale(1.2) translateZ(20px);
+        }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            .navbar .container {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .navbar .nav-links {
+                gap: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .core-team-row, .team-grid {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 30px;
+            }
+            .team-member {
+                padding: 20px;
+            }
+            .team-member img {
+                width: 100px;
+                height: 100px;
+            }
+        }
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            h2 {
+                font-size: 1.8rem;
+            }
+            .container {
+                margin-top: 80px;
+                padding: 50px 15px;
+            }
+            .navbar .logo {
+                font-size: 1.5rem;
+            }
+            .navbar .nav-links li a {
+                font-size: 1rem;
+            }
+            .team-member img {
+                width: 80px;
+                height: 80px;
+            }
+            .team-member h3 {
+                font-size: 1.4rem;
+            }
+            .team-member .role {
+                font-size: 1rem;
+            }
+            .team-member p {
+                font-size: 0.9rem;
+            }
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(230, 184, 0, 0.3), 0 0 20px rgba(230, 184, 0, 0.2);
+            }
+            to {
+                text-shadow: 0 0 20px rgba(230, 184, 0, 0.5), 0 0 30px rgba(230, 184, 0, 0.3);
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="#" class="logo">Trispark</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="https://book-frontend-three.vercel.app/">Book Store</a></li>
+                <li><a href="https://vidyasetu123.netlify.app/">Vidyasetu</a></li>
+                <li><a href="https://geniusai444.netlify.app/">Genius AI</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Main Content -->
+     <br>
+    <div class="container">
+        <h1>Trispark Team</h1>
+        <h2>Core Team</h2>
+        <div class="core-team-grid">
+            <div class="core-team-row">
+                <div class="team-member">
+                    <img src="assets/img/gaura2.jpg" alt="Gaurav Arya">
+                    <h3>Gaurav Arya</h3>
+                    <div class="role">BookStore</div>
+                    <p>Development And Data Management.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="assets/img/jjj.jpg" alt="Kamlesh Kumar">
+                    <h3>Kamlesh Kumar</h3>
+                    <div class="role">BookStore</div>
+                    <p>Frontend Development.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="core-team-row">
+                <div class="team-member">
+                    <img src="assets/img/pankajj.jpg" alt="Pankaj Kumar">
+                    <h3>Pankaj Kumar</h3>
+                    <div class="role">Vidyasetu</div>
+                    <p>Development And Management</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <img src="assets/img/bhavik.jpg" alt="Bhavik Katara">
+                    <h3>Bhavik Katara</h3>
+                    <div class="role">Vidyasetu</div>
+                    <p>Development And Management.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="center-member">
+                <div class="team-member">
+                    <img src="assets/img/shabir.jpg" alt="Md. Shabir Ansari">
+                    <h3>Md. Shabir Ansari</h3>
+                    <div class="role">Genius AI</div>
+                    <p>Full-Development.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h2>Mentor & Leadership</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="assets/img/deee.png" alt="Mentor">
+                <h3>Project Mentor</h3>
+                <div class="role">Mr. Deepanshu Mehta</div>
+                <p></p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="assets/img/vinn.jpg" alt="HOD CSE">
+                <h3>HOD CSE</h3>
+                <div class="role">Mr. Vinayak Mehta</div>
+                <p>And Project Mentor</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="assets/img/raffgh.png" alt="New Mentor">
+                <h3>8th Sem Mentor</h3>
+                <div class="role">Mr. Raghvendra Sharma</div>
+                <p></p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="assets/img/hemant-dhabhai.jpg" alt="Director">
+                <h3>Director</h3>
+                <div class="role">AITS Director</div>
+                <p></p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script>
+        // GSAP Scroll Animations for Team Members
+        gsap.utils.toArray('.team-member').forEach((member) => {
+            gsap.fromTo(member, 
+                {
+                    opacity: 0,
+                    y: 50,
+                    scale: 0.95,
+                    rotateX: -10,
+                    rotateY: 10
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    scale: 1,
+                    rotateX: 0,
+                    rotateY: 0,
+                    duration: 0.8,
+                    ease: 'power3.out',
+                    scrollTrigger: {
+                        trigger: member,
+                        start: 'top 80%',
+                        end: 'bottom 20%',
+                        toggleActions: 'play none none reverse',
+                        scrub: true
+                    }
+                }
+            );
+        });
+
+        // GSAP Animation for Navbar
+        gsap.from('.navbar', {
+            y: -100,
+            opacity: 0,
+            duration: 1,
+            ease: 'power3.out',
+            delay: 0.5
+        });
+
+        // 3D Tilt Effect on Hover
+        document.querySelectorAll('.team-member').forEach((card) => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+                gsap.to(card, {
+                    rotateX: rotateX,
+                    rotateY: -rotateY,
+                    duration: 0.3,
+                    ease: 'power2.out'
+                });
+            });
+
+            card.addEventListener('mouseleave', () => {
+                gsap.to(card, {
+                    rotateX: 0,
+                    rotateY: 0,
+                    duration: 0.5,
+                    ease: 'power2.out'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
